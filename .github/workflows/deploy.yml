@@ -22,7 +22,7 @@ jobs:
           command: |
             cd /app/code/code-tools
             git pull
-            kill -9 $(lsof -t -sTCP:LISTEN -i:8080)
+            kill -9 $(lsof -t -sTCP:LISTEN -i:8020)
             mvn package -Pproduction
             nohup mvn spring-boot:run -Dvaadin.productionMode=true > code-tools.log &
 
