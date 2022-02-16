@@ -51,6 +51,7 @@ public class JsonToolView extends VerticalLayout {
         attrPath = new TextField("字段路径");
         col2.add(attrPath);
         format = new TextField("拼接格式(占位符为%s)");
+        format.setValue("%s");
         col2.add(format);
         delimiter = new TextField("拼接分隔符");
         delimiter.setValue(",");
