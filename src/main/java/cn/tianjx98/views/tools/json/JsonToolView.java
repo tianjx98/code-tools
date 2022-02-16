@@ -23,6 +23,7 @@ public class JsonToolView extends VerticalLayout {
 
     TextField attrPath;
     TextField format;
+    TextField delimiter;
     Button extractButton;
 
     public JsonToolView() {
@@ -51,6 +52,9 @@ public class JsonToolView extends VerticalLayout {
         col2.add(attrPath);
         format = new TextField("拼接格式(占位符为%s)");
         col2.add(format);
+        delimiter = new TextField("拼接分隔符");
+        delimiter.setValue(",");
+        col2.add(delimiter);
         extractButton = new Button("提取");
         extractButton.addClickListener(event -> {
             output.setValue(getResult());
@@ -80,7 +84,7 @@ public class JsonToolView extends VerticalLayout {
         final JSONArray jsonArray = getJsonArray(parts);
         final String formatStr = this.format.getValue();
         return jsonArray.stream().map(o -> ((JSONObject) o).getString(parts[parts.length - 1]))
-                        .map(val -> String.format(formatStr, val)).collect(Collectors.joining(","));
+                        .map(val -> String.format(formatStr, val)).collect(Collectors.joining(delimiter.getValue()));
     }
 
     private JSONArray getJsonArray(String[] parts) {

@@ -21,6 +21,7 @@ jobs:
         with:
           command: |
             cd /app/code/code-tools
+            sdk use java 11.0.14.10.1-amzn
             git pull
             kill -9 $(lsof -t -sTCP:LISTEN -i:8020)
             mvn package -Pproduction
