@@ -129,8 +129,8 @@ public class MainLayout extends AppLayout {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{ //
                 new MenuItemInfo("Quick Start", "la la-book", QuickStartView.class), //
 
-                new MenuItemInfo("About", "la la-file", AboutView.class), //
                 new MenuItemInfo("JSON Tools", "la la-file", JsonToolView.class), //
+                new MenuItemInfo("About", "la la-file", AboutView.class), //
 
         };
         List<RouterLink> links = new ArrayList<>();
