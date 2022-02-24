@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import cn.tianjx98.views.tools.MybatisSqlLogReplaceView;
 import cn.tianjx98.views.tools.json.JsonToolView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -130,6 +131,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Quick Start", "la la-book", QuickStartView.class), //
 
                 new MenuItemInfo("JSON Tools", "la la-file", JsonToolView.class), //
+                new MenuItemInfo("String Tools", "la la-file", MybatisSqlLogReplaceView.class), //
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
 
         };
