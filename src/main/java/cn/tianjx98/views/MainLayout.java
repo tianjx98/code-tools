@@ -132,7 +132,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("JSON Tools", "la la-file", JsonToolView.class), //
                 new MenuItemInfo("String Tools", "la la-file", MybatisSqlLogReplaceView.class), //
-                new MenuItemInfo("About", "la la-file", AboutView.class), //
+                //new MenuItemInfo("About", "la la-file", AboutView.class), //
 
         };
         List<RouterLink> links = new ArrayList<>();
