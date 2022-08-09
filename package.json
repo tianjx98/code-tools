@@ -2,7 +2,6 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "dependencies": {
-    "@axa-ch/input-text": "4.3.11",
     "@polymer/iron-a11y-announcer": "3.0.2",
     "@polymer/iron-a11y-keys-behavior": "3.0.1",
     "@polymer/iron-fit-behavior": "3.0.2",
@@ -94,7 +93,6 @@
   },
   "vaadin": {
     "dependencies": {
-      "@axa-ch/input-text": "4.3.11",
       "@polymer/iron-a11y-announcer": "3.0.2",
       "@polymer/iron-a11y-keys-behavior": "3.0.1",
       "@polymer/iron-fit-behavior": "3.0.2",
@@ -184,6 +182,6 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "5f8a57b4a776a625370b7638d197c17ac644751b5c54889dbbc3c3bdd4d26e10"
+    "hash": "95777636f3ac470df5f4cbf7ac3b2f139cbbc3e31908a5b58f98185abc0f87ff"
   }
 }
