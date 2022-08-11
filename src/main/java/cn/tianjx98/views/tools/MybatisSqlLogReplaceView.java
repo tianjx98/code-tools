@@ -8,10 +8,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import cn.tianjx98.aop.annotations.Menu;
 import cn.tianjx98.views.MainLayout;
 
 @PageTitle("Mybatis SQL参数替换")
 @Route(value = "mybatis-sql-parser", layout = MainLayout.class)
+@Menu(value = "Sql Tools", iconClass = "la la-book")
 public class MybatisSqlLogReplaceView extends VerticalLayout {
     TextArea sqlInput;
     TextArea paramInput;

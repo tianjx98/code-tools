@@ -1,42 +1,24 @@
 package cn.tianjx98.views;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import cn.tianjx98.views.tools.MybatisSqlLogReplaceView;
-import cn.tianjx98.views.tools.json.JsonToolView;
+import org.reflections.Reflections;
+
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentUtil;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.ListItem;
-import com.vaadin.flow.component.html.Nav;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.UnorderedList;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.tabs.TabsVariant;
-import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-import cn.tianjx98.views.MainLayout;
-import cn.tianjx98.views.quickstart.QuickStartView;
-import cn.tianjx98.views.about.AboutView;
-import com.vaadin.flow.component.avatar.Avatar;
+
+import cn.tianjx98.aop.annotations.Menu;
+import lombok.Getter;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -46,28 +28,19 @@ import com.vaadin.flow.component.avatar.Avatar;
 @PageTitle("Main")
 public class MainLayout extends AppLayout {
 
+    @Getter
     public static class MenuItemInfo {
 
+        private int order;
         private String text;
         private String iconClass;
         private Class<? extends Component> view;
 
-        public MenuItemInfo(String text, String iconClass, Class<? extends Component> view) {
+        public MenuItemInfo(int order, String text, String iconClass, Class<? extends Component> view) {
+            this.order = order;
             this.text = text;
             this.iconClass = iconClass;
             this.view = view;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public String getIconClass() {
-            return iconClass;
-        }
-
-        public Class<? extends Component> getView() {
-            return view;
         }
 
     }
@@ -91,7 +64,7 @@ public class MainLayout extends AppLayout {
 
         Header header = new Header(toggle, viewTitle);
         header.addClassNames("bg-base", "border-b", "border-contrast-10", "box-border", "flex", "h-xl", "items-center",
-                "w-full");
+                        "w-full");
         return header;
     }
 
@@ -99,8 +72,8 @@ public class MainLayout extends AppLayout {
         H2 appName = new H2("code-tools");
         appName.addClassNames("flex", "items-center", "h-xl", "m-0", "px-m", "text-m");
 
-        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-                createNavigation(), createFooter());
+        com.vaadin.flow.component.html.Section section =
+                        new com.vaadin.flow.component.html.Section(appName, createNavigation(), createFooter());
         section.addClassNames("flex", "flex-col", "items-stretch", "max-h-full", "min-h-full");
         return section;
     }
@@ -127,20 +100,13 @@ public class MainLayout extends AppLayout {
     }
 
     private List<RouterLink> createLinks() {
-        MenuItemInfo[] menuItems = new MenuItemInfo[]{ //
-                new MenuItemInfo("Quick Start", "la la-book", QuickStartView.class), //
-
-                new MenuItemInfo("JSON Tools", "la la-file", JsonToolView.class), //
-                new MenuItemInfo("String Tools", "la la-file", MybatisSqlLogReplaceView.class), //
-                //new MenuItemInfo("About", "la la-file", AboutView.class), //
-
-        };
-        List<RouterLink> links = new ArrayList<>();
-        for (MenuItemInfo menuItemInfo : menuItems) {
-            links.add(createLink(menuItemInfo));
-
-        }
-        return links;
+        Reflections reflections = new Reflections("cn.tianjx98.views");
+        Set<Class<?>> menus = reflections.getTypesAnnotatedWith(Menu.class);
+        return menus.stream().map(menu -> {
+            final Menu tag = menu.getAnnotation(Menu.class);
+            return new MenuItemInfo(tag.order(), tag.value(), tag.iconClass(), (Class<? extends Component>) menu);
+        }).sorted(Comparator.comparingInt(MenuItemInfo::getOrder)).map(MainLayout::createLink)
+                        .collect(Collectors.toList());
     }
 
     private static RouterLink createLink(MenuItemInfo menuItemInfo) {

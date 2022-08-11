@@ -2,6 +2,7 @@ package cn.tianjx98.views.tools.json;
 
 import java.util.stream.Collectors;
 
+import cn.tianjx98.aop.annotations.Menu;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -17,6 +18,7 @@ import cn.tianjx98.views.MainLayout;
 
 @PageTitle("JSON字段提取")
 @Route(value = "jsonExtractor", layout = MainLayout.class)
+@Menu(value = "JSON Tools", iconClass = "la la-file")
 public class JsonToolView extends VerticalLayout {
     TextArea jsonInput;
     TextArea output;
