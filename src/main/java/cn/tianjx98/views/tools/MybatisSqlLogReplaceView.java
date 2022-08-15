@@ -2,7 +2,10 @@ package cn.tianjx98.views.tools;
 
 import java.util.HashMap;
 
+import org.springframework.util.StringUtils;
+
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -12,10 +15,12 @@ import com.vaadin.flow.router.Route;
 
 import cn.tianjx98.aop.annotations.Menu;
 import cn.tianjx98.views.MainLayout;
+import lombok.extern.log4j.Log4j2;
 
 @PageTitle("Mybatis SQL参数替换")
 @Route(value = "mybatis-sql-parser", layout = MainLayout.class)
 @Menu(value = "Sql Tools", iconClass = "la la-book")
+@Log4j2
 public class MybatisSqlLogReplaceView extends VerticalLayout {
     TextArea sqlInput;
     TextArea paramInput;
@@ -55,7 +60,12 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         page.add(col2);
         generateButton = new Button("生成SQL");
         generateButton.addClickListener(event -> {
-            output.setValue(getResult());
+            try {
+                output.setValue(getResult());
+            } catch (Exception e) {
+                Notification.show("解析异常");
+                log.error(e);
+            }
         });
         col2.add(generateButton);
 
@@ -72,6 +82,9 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
     }
 
     private String getResult() {
+        if (!StringUtils.hasLength(sqlInput.getValue())) {
+            return "";
+        }
 
         final HashMap<String, String> map = resolveSQL();
 
