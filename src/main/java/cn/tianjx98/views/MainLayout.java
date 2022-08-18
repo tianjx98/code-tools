@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import cn.tianjx98.infra.constants.Constant;
 import org.reflections.Reflections;
 
 import com.vaadin.flow.component.Component;
@@ -100,7 +101,7 @@ public class MainLayout extends AppLayout {
     }
 
     private List<RouterLink> createLinks() {
-        Reflections reflections = new Reflections("cn.tianjx98.views");
+        Reflections reflections = new Reflections(Constant.Packages.VIEW_PACKAGE);
         Set<Class<?>> menus = reflections.getTypesAnnotatedWith(Menu.class);
         return menus.stream().map(menu -> {
             final Menu tag = menu.getAnnotation(Menu.class);

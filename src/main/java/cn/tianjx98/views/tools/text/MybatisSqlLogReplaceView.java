@@ -1,7 +1,8 @@
-package cn.tianjx98.views.tools;
+package cn.tianjx98.views.tools.text;
 
 import java.util.HashMap;
 
+import cn.tianjx98.aop.annotations.Tab;
 import org.springframework.util.StringUtils;
 
 import com.vaadin.flow.component.button.Button;
@@ -19,16 +20,13 @@ import lombok.extern.log4j.Log4j2;
 
 @PageTitle("Mybatis SQL参数替换")
 @Route(value = "mybatis-sql-parser", layout = MainLayout.class)
-@Menu(value = "Sql Tools", iconClass = "la la-book")
+//@Menu(value = "Sql Tools", iconClass = "la la-book")
+@Tab(value = "SQL参数替换", group = "textTool", order = -1)
 @Log4j2
 public class MybatisSqlLogReplaceView extends VerticalLayout {
     TextArea sqlInput;
-    TextArea paramInput;
     TextArea output;
 
-    TextField attrPath;
-    TextField format;
-    TextField delimiter;
     Button generateButton;
 
     public MybatisSqlLogReplaceView() {
@@ -44,14 +42,9 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         col1.setWidthFull();
         page.add(col1);
         sqlInput = new TextArea("SQL日志");
-        sqlInput.setHeight("400px");
+        sqlInput.setHeightFull();
         sqlInput.setWidthFull();
         col1.add(sqlInput);
-        // paramInput = new TextArea("参数");
-        // paramInput.setHeight("350px");
-        // paramInput.setWidthFull();
-        // col1.add(paramInput);
-
 
         final VerticalLayout col2 = new VerticalLayout();
         col2.setHeightFull();
@@ -75,7 +68,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         col3.setHeightFull();
         col3.setWidthFull();
         page.add(col3);
-        output = new TextArea();
+        output = new TextArea(" ");
         output.setWidthFull();
         output.setHeightFull();
         col3.add(output);

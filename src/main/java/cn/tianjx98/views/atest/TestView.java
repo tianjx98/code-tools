@@ -14,7 +14,7 @@ import com.vaadin.flow.router.Route;
 
 @PageTitle("Test")
 @Route(value = "test", layout = MainLayout.class)
-@Menu(value = "测试", order = -1)
+//@Menu(value = "测试", order = -1)
 public class TestView extends VerticalLayout {
 
     public TestView() {
