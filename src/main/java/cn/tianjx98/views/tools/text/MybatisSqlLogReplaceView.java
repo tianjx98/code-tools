@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.springframework.util.StringUtils;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,7 +17,7 @@ import lombok.extern.log4j.Log4j2;
 
 @PageTitle("Mybatis SQL参数替换")
 @Route(value = "mybatis-sql-parser", layout = MainLayout.class)
-//@Menu(value = "Sql Tools", iconClass = "la la-book")
+// @Menu(value = "Sql Tools", iconClass = "la la-book")
 @Tab(value = "SQL参数替换", group = "textTool", order = -1)
 @Log4j2
 public class MybatisSqlLogReplaceView extends VerticalLayout {
@@ -69,6 +68,9 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
 
         final HashMap<String, String> map = resolveSQL();
 
+        if (!StringUtils.hasLength(map.get("param"))) {
+            return map.get("sql");
+        }
         final String[] originParams = map.get("param").split(", ");
         final Object[] formatParams = new String[originParams.length];
         for (int i = 0; i < originParams.length; i++) {
