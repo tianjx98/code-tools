@@ -41,7 +41,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         sqlInput.setWidthFull();
         col1.add(sqlInput);
 
-        sqlInput.addInputListener(event -> {
+        sqlInput.addValueChangeListener(event -> {
             try {
                 output.setValue(getResult());
             } catch (Exception e) {
