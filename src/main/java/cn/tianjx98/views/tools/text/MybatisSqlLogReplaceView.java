@@ -2,8 +2,11 @@ package cn.tianjx98.views.tools.text;
 
 import java.util.HashMap;
 
+import com.vaadin.flow.data.value.ValueChangeMode;
 import org.springframework.util.StringUtils;
 
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -41,6 +44,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         sqlInput.setWidthFull();
         col1.add(sqlInput);
 
+        sqlInput.setValueChangeMode(ValueChangeMode.EAGER);
         sqlInput.addValueChangeListener(event -> {
             try {
                 output.setValue(getResult());
@@ -49,7 +53,6 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
                 log.error(e);
             }
         });
-
 
         final VerticalLayout col3 = new VerticalLayout();
         col3.setHeightFull();
