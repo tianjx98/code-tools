@@ -2,7 +2,6 @@ package cn.tianjx98.views.tools.text;
 
 import java.util.HashMap;
 
-import cn.tianjx98.aop.annotations.Tab;
 import org.springframework.util.StringUtils;
 
 import com.vaadin.flow.component.button.Button;
@@ -10,11 +9,10 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import cn.tianjx98.aop.annotations.Menu;
+import cn.tianjx98.aop.annotations.Tab;
 import cn.tianjx98.views.MainLayout;
 import lombok.extern.log4j.Log4j2;
 
@@ -26,8 +24,6 @@ import lombok.extern.log4j.Log4j2;
 public class MybatisSqlLogReplaceView extends VerticalLayout {
     TextArea sqlInput;
     TextArea output;
-
-    Button generateButton;
 
     public MybatisSqlLogReplaceView() {
         setHeightFull();
@@ -46,13 +42,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         sqlInput.setWidthFull();
         col1.add(sqlInput);
 
-        final VerticalLayout col2 = new VerticalLayout();
-        col2.setHeightFull();
-        col2.setWidthFull();
-        col2.setAlignItems(Alignment.CENTER);
-        page.add(col2);
-        generateButton = new Button("生成SQL");
-        generateButton.addClickListener(event -> {
+        sqlInput.addInputListener(event -> {
             try {
                 output.setValue(getResult());
             } catch (Exception e) {
@@ -60,15 +50,13 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
                 log.error(e);
             }
         });
-        col2.add(generateButton);
-
 
 
         final VerticalLayout col3 = new VerticalLayout();
         col3.setHeightFull();
         col3.setWidthFull();
         page.add(col3);
-        output = new TextArea(" ");
+        output = new TextArea("拼接SQL语句");
         output.setWidthFull();
         output.setHeightFull();
         col3.add(output);
@@ -81,7 +69,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
 
         final HashMap<String, String> map = resolveSQL();
 
-        final String[] originParams = map.get("param").split(",");
+        final String[] originParams = map.get("param").split(", ");
         final Object[] formatParams = new String[originParams.length];
         for (int i = 0; i < originParams.length; i++) {
             formatParams[i] = formatParam(originParams[i].trim());
