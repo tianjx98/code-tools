@@ -49,7 +49,7 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
             try {
                 output.setValue(getResult());
             } catch (Exception e) {
-                Notification.show("解析异常");
+                Notification.show("解析异常: " + e.getMessage());
                 log.error(e);
             }
         });
