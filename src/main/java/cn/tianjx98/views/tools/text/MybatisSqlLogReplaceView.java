@@ -47,7 +47,8 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         sqlInput.setValueChangeMode(ValueChangeMode.EAGER);
         sqlInput.addValueChangeListener(event -> {
             try {
-                output.setValue(getResult());
+                final String result = getResult();
+                output.setValue(result);
             } catch (Exception e) {
                 Notification.show("解析异常: " + e.getMessage());
                 log.error(e);
@@ -83,8 +84,8 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         return String.format(formatSql, formatParams).replace("$$$", "%");
     }
 
-    private static final String SQL_FLAG = "==>  Preparing: ";
-    private static final String PARAM_FLAG = "==> Parameters: ";
+    private static final String SQL_FLAG = "Preparing: ";
+    private static final String PARAM_FLAG = "Parameters: ";
 
     private HashMap<String, String> resolveSQL() {
         String lines[] = sqlInput.getValue().split("\\r?\\n");
