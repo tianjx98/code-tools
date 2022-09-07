@@ -83,8 +83,8 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         return String.format(formatSql, formatParams).replace("$$$", "%");
     }
 
-    private static final String SQL_FLAG = "==>  Preparing: ";
-    private static final String PARAM_FLAG = "==> Parameters: ";
+    private static final String SQL_FLAG = "Preparing: ";
+    private static final String PARAM_FLAG = "Parameters: ";
 
     private HashMap<String, String> resolveSQL() {
         String lines[] = sqlInput.getValue().split("\\r?\\n");
