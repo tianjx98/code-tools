@@ -14,6 +14,7 @@ import cn.tianjx98.views.MainLayout;
 
 @PageTitle("文本处理工具")
 @Route(value = "text-tools", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
 @Menu(value = "文本处理工具", iconClass = "la la-file")
 public class TextToolView extends VerticalLayout {
     TextArea jsonInput;
@@ -42,6 +43,12 @@ public class TextToolView extends VerticalLayout {
         // col1.add(jsonInput);
         final Tabs tabs = new Tabs("textTool", Constant.Packages.VIEW_PACKAGE);
         add(tabs, tabs.getContent());
+        final Footer footer =
+                        new Footer(new Anchor("https://beian.miit.gov.cn/", "鄂ICP备2021019583号-1", AnchorTarget.BLANK));
+        footer.getStyle().set("font-size", "5px");
+        footer.setWidthFull();
+        footer.getStyle().set("text-align", "center");
+        add(footer);
     }
 
 }
