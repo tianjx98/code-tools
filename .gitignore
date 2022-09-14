@@ -17,4 +17,5 @@ error-screenshots/
 webpack.config.js
 webpack.generated.js
 /frontend/generated/
+# 日志文件
 *.log
