@@ -13,7 +13,7 @@ import cn.tianjx98.views.MainLayout;
 
 @PageTitle("Quick Start")
 @Route(value = "quick-start", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+// @RouteAlias(value = "", layout = MainLayout.class)
 //@Menu(value = "Quick Start", iconClass = "la la-file", order = 0)
 public class QuickStartView extends HorizontalLayout {
 
