@@ -47,11 +47,14 @@ public class TextToolView extends VerticalLayout {
         // col1.add(jsonInput);
         final Tabs tabs = new Tabs("textTool", Constant.Packages.VIEW_PACKAGE);
         add(tabs, tabs.getContent());
-        final Footer footer =
-                        new Footer(new Anchor("https://beian.miit.gov.cn/", "鄂ICP备2021019583号-1", AnchorTarget.BLANK));
+        final Footer footer = new Footer();
         footer.getStyle().set("font-size", "5px");
         footer.setWidthFull();
         footer.getStyle().set("text-align", "center");
+
+        footer.add(new Anchor("https://github.com/tianjx98","Github"));
+        //footer.add(new Anchor("https://hedgedoc.tianjx98.cn/1MeAwgqqT4aBvuT10PjRJA","点一下试试"));
+        footer.add(new Anchor("https://beian.miit.gov.cn/", "鄂ICP备2021019583号-1", AnchorTarget.BLANK));
         add(footer);
     }
 
