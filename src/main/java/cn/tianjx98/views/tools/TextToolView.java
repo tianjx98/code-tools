@@ -1,5 +1,6 @@
 package cn.tianjx98.views.tools;
 
+import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.AnchorTarget;
@@ -55,6 +56,11 @@ public class TextToolView extends VerticalLayout {
         footer.add(new Anchor("https://github.com/tianjx98","Github"));
         //footer.add(new Anchor("https://hedgedoc.tianjx98.cn/1MeAwgqqT4aBvuT10PjRJA","点一下试试"));
         footer.add(new Anchor("https://beian.miit.gov.cn/", "鄂ICP备2021019583号-1", AnchorTarget.BLANK));
+        footer.getChildren().forEach(e->{
+            if (e instanceof HasStyle) {
+                ((HasStyle) e).getStyle().set("margin", "5px");
+            }
+        });
         add(footer);
     }
 
