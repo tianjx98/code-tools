@@ -1,18 +1,13 @@
-package cn.tianjx98.controller;
+package cn.tianjx98;
 
+import cn.hutool.http.HttpUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -20,20 +15,9 @@ import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
-@RequestMapping()
-public class NotifyController {
-    RestTemplate restTemplate = new RestTemplate();
+public class Test {
+    public static void main(String[] args) {
 
-    @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
-    public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-        System.out.println("123");
-        RequestEntity entity = createRequestEntity(request, "http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA");
-        return route(entity);
-    }
-
-    private ResponseEntity<String> route(RequestEntity requestEntity) {
-        return restTemplate.exchange(requestEntity, String.class);
     }
 
     private RequestEntity createRequestEntity(HttpServletRequest request, String url) throws URISyntaxException, IOException {

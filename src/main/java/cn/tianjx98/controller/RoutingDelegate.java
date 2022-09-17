@@ -1,14 +1,9 @@
 package cn.tianjx98.controller;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,21 +15,27 @@ import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
-@RequestMapping()
-public class NotifyController {
-    RestTemplate restTemplate = new RestTemplate();
+@Service
+public class RoutingDelegate {
 
-    @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
-    public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-        System.out.println("123");
-        RequestEntity entity = createRequestEntity(request, "http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA");
-        return route(entity);
+
+    public ResponseEntity<String> redirect(HttpServletRequest request, HttpServletResponse response,String routeUrl, String prefix) {
+        try {
+            // build up the redirect URL
+            String redirectUrl = createRedictUrl(request,routeUrl, prefix);
+            RequestEntity requestEntity = createRequestEntity(request, redirectUrl);
+            return route(requestEntity);
+        } catch (Exception e) {
+            return new ResponseEntity("REDIRECT ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    private ResponseEntity<String> route(RequestEntity requestEntity) {
-        return restTemplate.exchange(requestEntity, String.class);
+    private String createRedictUrl(HttpServletRequest request, String routeUrl, String prefix) {
+        String queryString = request.getQueryString();
+        return routeUrl + request.getRequestURI().replace(prefix, "") +
+                (queryString != null ? "?" + queryString : "");
     }
+
 
     private RequestEntity createRequestEntity(HttpServletRequest request, String url) throws URISyntaxException, IOException {
         String method = request.getMethod();
@@ -42,6 +43,11 @@ public class NotifyController {
         MultiValueMap<String, String> headers = parseRequestHeader(request);
         byte[] body = parseRequestBody(request);
         return new RequestEntity<>(body, headers, httpMethod, new URI(url));
+    }
+	
+    private ResponseEntity<String> route(RequestEntity requestEntity) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.exchange(requestEntity, String.class);
     }
 
 
