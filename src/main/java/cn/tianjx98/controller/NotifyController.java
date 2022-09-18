@@ -26,7 +26,7 @@ public class NotifyController {
 
     @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
     public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-        MailUtil.sendText("973970940@qq.com", "访问提醒", DateUtil.now());
+        MailUtil.sendText("973970940@qq.com", "访问提醒" + DateUtil.now(), "");
         return restTemplate.exchange("http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
     }
 
