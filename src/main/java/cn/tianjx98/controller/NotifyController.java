@@ -1,5 +1,7 @@
 package cn.tianjx98.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.extra.mail.MailUtil;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
@@ -24,17 +26,8 @@ public class NotifyController {
 
     @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
     public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-        System.out.println("123");
-        //RequestEntity entity = createRequestEntity(request, "http://tianjx98.cn:3000/1MeAwgqqT4aBvuT10PjRJA");
-        //RequestEntity entity = createRequestEntity(request, "http://localhost:8020/test");
-        //ResponseEntity<String> route = route(entity);
-        //return route;
+        MailUtil.sendText("973970940@qq.com", "访问提醒", DateUtil.now());
         return restTemplate.exchange("http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "456";
     }
 
     private ResponseEntity<String> route(RequestEntity requestEntity) {

@@ -1,5 +1,7 @@
 package cn.tianjx98;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.extra.mail.MailUtil;
 import cn.hutool.http.HttpUtil;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
@@ -16,9 +18,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange("https://hedgedoc.tianjx98.cn/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
-        System.out.println(response);
+
     }
 
     private RequestEntity createRequestEntity(HttpServletRequest request, String url) throws URISyntaxException, IOException {
