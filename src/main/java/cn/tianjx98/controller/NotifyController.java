@@ -1,9 +1,6 @@
 package cn.tianjx98.controller;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +25,16 @@ public class NotifyController {
     @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
     public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
         System.out.println("123");
-        RequestEntity entity = createRequestEntity(request, "http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA");
-        return route(entity);
+        //RequestEntity entity = createRequestEntity(request, "http://tianjx98.cn:3000/1MeAwgqqT4aBvuT10PjRJA");
+        //RequestEntity entity = createRequestEntity(request, "http://localhost:8020/test");
+        //ResponseEntity<String> route = route(entity);
+        //return route;
+        return restTemplate.exchange("http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "456";
     }
 
     private ResponseEntity<String> route(RequestEntity requestEntity) {
