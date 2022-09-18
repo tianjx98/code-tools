@@ -1,6 +1,7 @@
 package cn.tianjx98.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.net.Ipv4Util;
 import cn.hutool.extra.mail.MailUtil;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
@@ -26,7 +27,7 @@ public class NotifyController {
 
     @GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
     public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-        MailUtil.sendText("973970940@qq.com", "访问提醒" + DateUtil.now(), "");
+        MailUtil.sendText("973970940@qq.com", String.format("访问提醒(%s)%s", request.getRemoteAddr(), DateUtil.now()), "");
         return restTemplate.exchange("http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
     }
 
