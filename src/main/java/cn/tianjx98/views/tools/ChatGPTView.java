@@ -3,6 +3,7 @@ package cn.tianjx98.views.tools;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -17,6 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import cn.hutool.http.HttpUtil;
+import cn.tianjx98.Application;
 import cn.tianjx98.aop.annotations.Tab;
 import cn.tianjx98.views.MainLayout;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +27,9 @@ import lombok.extern.log4j.Log4j2;
 @Route(value = "chat-gpt", layout = MainLayout.class)
 @Tab(value = "ChatGPT", group = "textTool", order = 5)
 @Log4j2
+@Component
 public class ChatGPTView extends VerticalLayout {
+    private String apiKey;
     TextField question;
     TextArea answer;
 
@@ -62,14 +66,19 @@ public class ChatGPTView extends VerticalLayout {
     private String getResult(Map<String, Object> param) {
         try {
             final String body = HttpUtil.createPost("https://api.openai.com/v1/completions")
-                            .header("Content-Type", "application/json")
-                            .header("Authorization", "Bearer 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")
+                            .header("Content-Type", "application/json").header("Authorization", "Bearer " + getApiKey())
                             .body(JSON.toJSONString(param)).execute().body();
-
             return ((JSONObject) JSON.parseObject(body).getJSONArray("choices").get(0)).getString("text").trim();
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
         }
+    }
+
+    private String getApiKey() {
+        if (apiKey == null) {
+            return apiKey = Application.context.getEnvironment().getProperty("chatgpt.api-key");
+        }
+        return apiKey;
     }
 }
