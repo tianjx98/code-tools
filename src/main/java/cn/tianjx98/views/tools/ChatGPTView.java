@@ -68,6 +68,7 @@ public class ChatGPTView extends VerticalLayout {
             final String body = HttpUtil.createPost("https://api.openai.com/v1/completions")
                             .header("Content-Type", "application/json").header("Authorization", "Bearer " + getApiKey())
                             .body(JSON.toJSONString(param)).execute().body();
+            System.out.println(body);
             return ((JSONObject) JSON.parseObject(body).getJSONArray("choices").get(0)).getString("text").trim();
         } catch (Exception e) {
             e.printStackTrace();
