@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.tianjx98.Application;
 import cn.tianjx98.aop.annotations.Tab;
@@ -65,9 +66,12 @@ public class ChatGPTView extends VerticalLayout {
 
     private String getResult(Map<String, Object> param) {
         try {
-            final String body = HttpUtil.createPost("https://api.openai.com/v1/completions")
+            final HttpRequest request = HttpUtil.createPost("https://api.openai.com/v1/completions")
                             .header("Content-Type", "application/json").header("Authorization", "Bearer " + getApiKey())
-                            .body(JSON.toJSONString(param)).execute().body();
+                            .body(JSON.toJSONString(param));
+            System.out.println(request);
+            final String body = request.execute().body();
+
             System.out.println(body);
             return ((JSONObject) JSON.parseObject(body).getJSONArray("choices").get(0)).getString("text").trim();
         } catch (Exception e) {
