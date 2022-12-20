@@ -25,7 +25,7 @@ jobs:
             git pull
             kill -9 $(lsof -t -sTCP:LISTEN -i:8020)
             mvn package -Pproduction
-            nohup mvn spring-boot:run -Dvaadin.productionMode=true -Dchatgpt.api-key=${{ CHAT_GPT_API_KEY }} > code-tools.log &
+            nohup mvn spring-boot:run -Dvaadin.productionMode=true -Dchatgpt.api-key=${{ secrets.CHAT_GPT_API_KEY }} > code-tools.log &
 
           host: ${{ secrets.DEPLOY_HOST }}
           user: root
