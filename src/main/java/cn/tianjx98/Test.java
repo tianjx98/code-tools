@@ -7,9 +7,13 @@ import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.hutool.core.util.NumberUtil;
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Options;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -23,15 +27,12 @@ import cn.hutool.http.HttpUtil;
 
 public class Test {
     public static void main(String[] args) {
-        final HashMap<String, Object> param = new HashMap<>();
-        param.put("prompt", "cron表达式每三分钟执行一次怎么写");
-        param.put("max_tokens", 1000);
-        param.put("model", "text-davinci-003");
-        final HttpResponse response = HttpUtil.createPost("https://api.openai.com/v1/completions")
-                        .header("Content-Type", "application/json")
-                        .header("Authorization", "Bearer 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")
-                        .body(JSON.toJSONString(param)).execute();
-        System.out.println(response.body());
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("x", 1);
+        paramMap.put("y", 2);
+        String expression = "x *1.0/ y";
+        AviatorEvaluator.setOption(Options.OPTIMIZE_LEVEL, AviatorEvaluator.EVAL);
+        System.out.println(AviatorEvaluator.compile(expression).execute(paramMap));
     }
 
     private RequestEntity createRequestEntity(HttpServletRequest request, String url)
