@@ -20,7 +20,7 @@ import cn.tianjx98.views.MainLayout;
 @PageTitle("JSON字段提取")
 @Route(value = "jsonExtractor", layout = MainLayout.class)
 //@Menu(value = "JSON Tools", iconClass = "la la-file")
-@Tab(value = "JSON字段提取", group = "textTool")
+@Tab(value = "JSON字段提取", group = "textTool", order = 11)
 public class JsonToolView extends VerticalLayout {
     TextArea jsonInput;
     TextArea output;
