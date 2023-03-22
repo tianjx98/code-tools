@@ -26,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 
 @PageTitle("ChatGPT")
 @Route(value = "chat-gpt", layout = MainLayout.class)
-@Tab(value = "ChatGPT", group = "textTool", order = 5)
+//@Tab(value = "ChatGPT", group = "textTool", order = 5)
 @Log4j2
 @Component
 public class ChatGPTView extends VerticalLayout {
