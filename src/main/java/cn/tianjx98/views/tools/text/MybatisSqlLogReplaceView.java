@@ -2,15 +2,13 @@ package cn.tianjx98.views.tools.text;
 
 import java.util.HashMap;
 
-import com.vaadin.flow.data.value.ValueChangeMode;
 import org.springframework.util.StringUtils;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -92,6 +90,9 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
         final HashMap<String, String> map = new HashMap<>();
         for (int i = 0; i < lines.length; i++) {
             final String line = lines[i];
+            if (!line.contains(SQL_FLAG) && !line.contains(PARAM_FLAG)) {
+                continue;
+            }
             final int sqlIndex = line.indexOf(SQL_FLAG);
             if (sqlIndex >= 0) {
                 map.put("sql", line.substring(sqlIndex + SQL_FLAG.length()));
