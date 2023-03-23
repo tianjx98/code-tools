@@ -22,6 +22,7 @@ import lombok.extern.log4j.Log4j2;
 @Tab(value = "SQL参数替换", group = "textTool", order = -1)
 @Log4j2
 public class MybatisSqlLogReplaceView extends VerticalLayout {
+    public static final String PARAM = "param";
     TextArea sqlInput;
     TextArea output;
 
@@ -70,10 +71,10 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
 
         final HashMap<String, String> map = resolveSQL();
 
-        if (!StringUtils.hasLength(map.get("param"))) {
+        if (!StringUtils.hasLength(map.get(PARAM))) {
             return map.get("sql");
         }
-        final String[] originParams = map.get("param").split(", ");
+        final String[] originParams = map.get(PARAM).split(", ");
         final Object[] formatParams = new String[originParams.length];
         for (int i = 0; i < originParams.length; i++) {
             formatParams[i] = formatParam(originParams[i].trim());
@@ -96,8 +97,11 @@ public class MybatisSqlLogReplaceView extends VerticalLayout {
             final int sqlIndex = line.indexOf(SQL_FLAG);
             if (sqlIndex >= 0) {
                 map.put("sql", line.substring(sqlIndex + SQL_FLAG.length()));
-                final String nextLine = lines[i + 1];
-                map.put("param", nextLine.substring(nextLine.indexOf(PARAM_FLAG) + PARAM_FLAG.length()));
+            }
+            final int paramIndex = line.indexOf(PARAM_FLAG);
+            if (paramIndex >= 0 && !map.containsKey(PARAM)) {
+                map.put(PARAM, line.substring(paramIndex + PARAM_FLAG.length()));
+                return map;
             }
         }
         return map;
