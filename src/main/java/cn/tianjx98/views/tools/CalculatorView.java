@@ -6,6 +6,7 @@ import cn.tianjx98.aop.annotations.Tab;
 import cn.tianjx98.views.MainLayout;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Options;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -47,7 +48,6 @@ public class CalculatorView extends VerticalLayout {
         col1.setHeightFull();
         col1.setWidthFull();
         page.add(col1);
-        col1.add(new Span("参考文档: https://www.yuque.com/boyan-avfmj/aviatorscript/lvabnw"));
         sqlInput = new TextArea("表达式");
         sqlInput.setHeightFull();
         sqlInput.setWidthFull();
@@ -67,6 +67,7 @@ public class CalculatorView extends VerticalLayout {
         output.setWidthFull();
         output.setHeightFull();
         col3.add(output);
+        page.add(new Anchor("https://www.yuque.com/boyan-avfmj/aviatorscript/lvabnw", "参考文档: https://www.yuque.com/boyan-avfmj/aviatorscript/lvabnw"));
     }
 
     private String getResult() {
