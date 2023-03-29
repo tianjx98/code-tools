@@ -1,23 +1,22 @@
 package cn.tianjx98.views.tools;
 
-import cn.tianjx98.aop.annotations.Tab;
-import cn.tianjx98.views.MainLayout;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.util.StringUtils;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import cn.tianjx98.aop.annotations.Tab;
+import cn.tianjx98.views.MainLayout;
 
 @PageTitle("字符串运算")
 @Route(value = "distinctTool", layout = MainLayout.class)
@@ -54,9 +53,9 @@ public class DistinctToolView extends VerticalLayout {
         col2.setWidthFull();
         col2.setAlignItems(Alignment.CENTER);
         page.add(col2);
-        select = new Select<>("减去", "交集");
+        select = new Select<>("减去", "交集", "去重");
         select.setValue("减去");
-        //attrPath = new TextField("字段路径");
+        // attrPath = new TextField("字段路径");
         col2.add(select);
         extractButton = new Button("执行");
         extractButton.addClickListener(event -> {
@@ -97,6 +96,8 @@ public class DistinctToolView extends VerticalLayout {
         } else if ("交集".equals(type)) {
             Set<String> ipt2 = toStream(input2.getValue()).collect(Collectors.toSet());
             return toStream(input.getValue()).filter(ipt2::contains).collect(Collectors.joining("\n"));
+        } else if ("去重".equals(type)) {
+            return toStream(input.getValue()).distinct().collect(Collectors.joining("\n"));
         }
         return "";
     }
