@@ -35,6 +35,7 @@ public class NotifyController {
     @PostMapping("/socket.io")
     public ResponseEntity<String> updateSendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
         MailUtil.sendText("973970940@qq.com", String.format("访问提醒(%s)%s", request.getHeader("X-Real-IP"), DateUtil.now()), "");
+        System.out.println(request.getRequestURI());
         return restTemplate.exchange("http://localhost:3000" + request.getRequestURI(), HttpMethod.POST, HttpEntity.EMPTY, String.class);
     }
 
