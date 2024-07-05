@@ -26,18 +26,18 @@ import java.util.List;
 public class NotifyController {
     RestTemplate restTemplate = new RestTemplate();
 
-    //@GetMapping("/1MeAwgqqT4aBvuT10PjRJA")
-    //public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
-    //    MailUtil.sendText("973970940@qq.com", String.format("访问提醒(%s)%s", request.getHeader("X-Real-IP"), DateUtil.now()), "");
-    //    return restTemplate.exchange("http://localhost:3000/1MeAwgqqT4aBvuT10PjRJA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
-    //}
-
-    @PostMapping("/socket.io")
-    public ResponseEntity<String> updateSendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
+    @GetMapping("/s-QNHmEETMSMD196DhsCDA")
+    public ResponseEntity<String> sendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
         MailUtil.sendText("973970940@qq.com", String.format("访问提醒(%s)%s", request.getHeader("X-Real-IP"), DateUtil.now()), "");
-        System.out.println(request.getRequestURI());
-        return restTemplate.exchange("http://localhost:3000" + request.getRequestURI(), HttpMethod.POST, HttpEntity.EMPTY, String.class);
+        return restTemplate.exchange("http://localhost:3000/s-QNHmEETMSMD196DhsCDA", HttpMethod.GET, HttpEntity.EMPTY, String.class);
     }
+
+    //@PostMapping("/socket.io")
+    //public ResponseEntity<String> updateSendEmail(HttpServletRequest request) throws URISyntaxException, IOException {
+    //    MailUtil.sendText("973970940@qq.com", String.format("访问提醒(%s)%s", request.getHeader("X-Real-IP"), DateUtil.now()), "");
+    //    System.out.println(request.getRequestURI());
+    //    return restTemplate.exchange("http://localhost:3000" + request.getRequestURI(), HttpMethod.POST, HttpEntity.EMPTY, String.class);
+    //}
 
     private ResponseEntity<String> route(RequestEntity requestEntity) {
         return restTemplate.exchange(requestEntity, String.class);
